@@ -1,6 +1,7 @@
 package com.example.engineers_workbook.fetchinggithub;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,18 +34,29 @@ public class Displaysearch_activity extends AppCompatActivity {
 
 
 
-
     }
 
-    private void makeGithubSearch(){
-        URL githubsearchurl = QueryUtils.CreateUrl(buildUri.toString());
+    public class GithubQuerytask extends AsyncTask<URL, Void, String>{
 
-        try {
-            String Response = QueryUtils.getResponseFromHttp(githubsearchurl);
-        }catch(IOException e){
-            Log.e("not working", "http" +e);
+        @Override
+        protected String doInBackground(URL... urls) {
+
+            String Response =null;
+            try {
+                Response = QueryUtils.getResponseFromHttp(urls[0]);
+            }catch(IOException e){
+                Log.e("not working", "http" +e);
+            }
+            return Response;
         }
 
+        @Override
+        protected void onPostExecute(String s) {
+            if(s!=null && !s.isEmpty()){
+                t_showresults =(TextView) findViewById(R.id.t_showresults);
+                t_showresults.setText(s);
+            }
+        }
     }
 
 
@@ -62,6 +74,12 @@ public class Displaysearch_activity extends AppCompatActivity {
 
     }
 
+    private void GithubQuerysearch(){
+        URL githubsearchurl = QueryUtils.CreateUrl(buildUri.toString());
+        new GithubQuerytask().execute(githubsearchurl);
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.repository_activity, menu);
@@ -75,7 +93,7 @@ public class Displaysearch_activity extends AppCompatActivity {
             case R.id.search_button:
                 //send data for search
                 Search();
-                makeGithubSearch();
+                GithubQuerysearch();
                 return true;
         }
         return super.onOptionsItemSelected(item);

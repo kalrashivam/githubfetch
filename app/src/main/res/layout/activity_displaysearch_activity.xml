@@ -11,15 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Query_taker"
-        android:id="@+id/querytaker"
-        android:text="android"/>
+        android:id="@+id/querytaker" />
 
-    <android.support.v7.app.AlertController.RecycleListView
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rv_repos">
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/t_showresults"/>
 
-
-    </android.support.v7.app.AlertController.RecycleListView>
+    </ScrollView>
 
 </LinearLayout>
