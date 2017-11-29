@@ -3,10 +3,14 @@ package com.example.engineers_workbook.fetchinggithub;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.io.IOException;
+import java.net.URL;
 
 public class Displaysearch_activity extends AppCompatActivity {
 
@@ -32,6 +36,17 @@ public class Displaysearch_activity extends AppCompatActivity {
 
     }
 
+    private void makeGithubSearch(){
+        URL githubsearchurl = QueryUtils.CreateUrl(buildUri.toString());
+
+        try {
+            String Response = QueryUtils.getResponseFromHttp(githubsearchurl);
+        }catch(IOException e){
+            Log.e("not working", "http" +e);
+        }
+
+    }
+
 
     private void Search(){
 
@@ -44,9 +59,6 @@ public class Displaysearch_activity extends AppCompatActivity {
                 .appendQueryParameter(param_sort,sortby).build();
 
         
-        t_showresults =(TextView) findViewById(R.id.repository_data);
-        t_showresults.setText(buildUri.toString());
-
 
     }
 
@@ -63,6 +75,7 @@ public class Displaysearch_activity extends AppCompatActivity {
             case R.id.search_button:
                 //send data for search
                 Search();
+                makeGithubSearch();
                 return true;
         }
         return super.onOptionsItemSelected(item);
