@@ -13,16 +13,27 @@
         android:hint="@string/Query_taker"
         android:id="@+id/querytaker" />
 
-
+    <android.support.v7.widget.FitWindowsFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp">
    <TextView
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
+       android:layout_height="wrap_content"
        android:id="@+id/t_showresults"/>
 
     </ScrollView>
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:id="@+id/pb"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
+    </android.support.v7.widget.FitWindowsFrameLayout>
+
+
 
 </LinearLayout>
